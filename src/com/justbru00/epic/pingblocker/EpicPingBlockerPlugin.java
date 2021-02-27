@@ -63,19 +63,24 @@ public class EpicPingBlockerPlugin extends JavaPlugin {
 									Messager.msgSender("&cThe blocked IP addresses list is empty.", sender);
 									return true;
 								}
-								
+
 								if (blockList.contains(ipAddress)) {
 									blockList.remove(ipAddress);
 									getConfig().set("blocked_ips", blockList);
 									saveConfig();
-									Messager.msgSender(String.format("&aSuccessfully removed the IP address '%s' from the blocked IP addresses list.",  ipAddress), sender);
+									Messager.msgSender(String.format(
+											"&aSuccessfully removed the IP address '%s' from the blocked IP addresses list.",
+											ipAddress), sender);
 									return true;
 								} else {
-									Messager.msgSender("&cThe blocked IP addresses list doesn't contain that IP.", sender);
+									Messager.msgSender("&cThe blocked IP addresses list doesn't contain that IP.",
+											sender);
 									return true;
-								}								
+								}
 							} else {
-								Messager.msgSender("&cThe provided IP address doesn't appear to be valid. Check that you have entered it correctly.", sender);
+								Messager.msgSender(
+										"&cThe provided IP address doesn't appear to be valid. Check that you have entered it correctly.",
+										sender);
 								return true;
 							}
 						} else {
@@ -84,7 +89,7 @@ public class EpicPingBlockerPlugin extends JavaPlugin {
 						}
 					} else if (args[0].equalsIgnoreCase("list")) {
 						List<String> blockList = getConfig().getStringList("blocked_ips");
-						
+
 						if (blockList == null || blockList.size() == 0) {
 							Messager.msgSender("&6The blocked IP addresses list is empty.", sender);
 							return true;
@@ -92,9 +97,9 @@ public class EpicPingBlockerPlugin extends JavaPlugin {
 							Messager.msgSender("&6Blocked IP Addresses:", sender);
 							for (String s : blockList) {
 								Messager.msgSender("&6- " + s, sender);
-							}							
+							}
 							return true;
-						}					
+						}
 					} else {
 						Messager.msgSender(
 								"&cSorry you must provide at least one argument for this command. /epicpingblocker <add,remove,list>",
@@ -124,14 +129,15 @@ public class EpicPingBlockerPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
-		
-		if (Bukkit.getVersion().contains("Paper")) {
-			// PaperSpigot server.
-			Messager.msgConsole("&aEnabling EpicPingBlocker version " + getDescription().getVersion() + " created by JustBru00.");
-			Bukkit.getPluginManager().registerEvents(new PaperServerListPingListener(this), this);
-		} else {
+
+		if (Bukkit.getVersion().contains("Spigot")) {
 			Messager.msgConsole("&cThis plugin will only run on paperspigot! Disabling myself now.");
 			Bukkit.getPluginManager().disablePlugin(this);
+		} else {
+			// PaperSpigot server.
+			Messager.msgConsole(
+					"&aEnabling EpicPingBlocker version " + getDescription().getVersion() + " created by JustBru00.");
+			Bukkit.getPluginManager().registerEvents(new PaperServerListPingListener(this), this);
 		}
 	}
 

@@ -1,5 +1,5 @@
 name: EpicPingBlocker
-version: 1.0
+version: 1.0.1
 authors: [JustBru00, Justin Brubaker]
 api-version: 1.13
 main: com.justbru00.epic.pingblocker.EpicPingBlockerPlugin
